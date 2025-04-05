@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from 'sonner';
 import Header from './Header';
 import Footer from './Footer';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 // Municipal codes and passwords (in a real app, these would be stored securely on the backend)
 const municipalCredentials = [
@@ -48,6 +49,7 @@ const LoginPage: React.FC = () => {
     // In a real app, this would make an API call to send an OTP
     // For demo purposes, we'll just show the OTP input field and simulate a sent OTP
     setShowOtpInput(true);
+    setOtp(''); // Clear any previous OTP
     toast.success('OTP sent to your mobile number');
     
     // For demo, we'll use a fixed OTP of '1234'
@@ -72,6 +74,10 @@ const LoginPage: React.FC = () => {
     
     // Redirect to the citizen dashboard
     navigate('/citizen-dashboard');
+  };
+
+  const handleOtpChange = (value: string) => {
+    setOtp(value);
   };
 
   // Handle municipal login
@@ -137,31 +143,35 @@ const LoginPage: React.FC = () => {
                   
                   {showOtpInput ? (
                     <div className="space-y-2">
-                      <Label htmlFor="otp">OTP</Label>
-                      <Input
-                        id="otp"
-                        type="text"
-                        placeholder="Enter 4-digit OTP"
-                        value={otp}
-                        onChange={(e) => setOtp(e.target.value)}
-                        maxLength={4}
+                      <Label htmlFor="otp">Enter 4-digit OTP</Label>
+                      <InputOTP 
+                        maxLength={4} 
+                        value={otp} 
+                        onChange={handleOtpChange}
+                        render={({ slots }) => (
+                          <InputOTPGroup>
+                            {slots.map((slot, index) => (
+                              <InputOTPSlot key={index} {...slot} index={index} />
+                            ))}
+                          </InputOTPGroup>
+                        )}
                       />
                       <p className="text-xs text-gray-500 mt-1">
-                        Use 1234 as OTP for demo
+                        For demo, use any 4-digit OTP (e.g., 1234)
                       </p>
                     </div>
                   ) : null}
                 </CardContent>
                 <CardFooter>
                   {showOtpInput ? (
-                    <div className="space-x-2 w-full">
+                    <div className="space-y-2 w-full">
                       <Button onClick={handleVerifyOtp} className="w-full">
                         Verify OTP
                       </Button>
                       <Button 
                         variant="outline" 
                         onClick={() => handleRequestOtp()}
-                        className="mt-2 w-full"
+                        className="w-full"
                       >
                         Resend OTP
                       </Button>
