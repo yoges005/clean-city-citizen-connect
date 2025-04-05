@@ -51,8 +51,13 @@ const Index = () => {
               <img 
                 src="/placeholder.svg" 
                 alt="Clean City Initiative" 
-                className="max-w-full rounded-lg shadow-lg animate-fade-in"
+                className="max-w-full h-auto rounded-lg shadow-lg animate-fade-in"
                 style={{ maxHeight: '400px' }}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = 'https://placehold.co/600x400/9b87f5/white?text=Clean+City+Initiative';
+                  target.onerror = null;
+                }}
               />
             </div>
           </div>

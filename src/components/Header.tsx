@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ userType, onLogout }) => {
     <header className="bg-clean-blue text-white shadow-md">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold">Clean City Connect</span>
+          <span className="text-xl font-bold">Municipal Corporation of India</span>
         </Link>
 
         <div className="flex items-center space-x-4">

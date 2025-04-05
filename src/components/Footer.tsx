@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">Clean City Connect</h3>
+            <h3 className="text-lg font-semibold mb-4">Municipal Corporation of India</h3>
             <p className="text-sm text-blue-100">
               A platform connecting citizens with municipal corporations for a cleaner India.
             </p>
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className="mt-8 pt-4 border-t border-blue-400 text-sm text-center text-blue-100">
-          &copy; {new Date().getFullYear()} Clean City Connect. All rights reserved.
+          &copy; {new Date().getFullYear()} Municipal Corporation of India. All rights reserved.
         </div>
       </div>
     </footer>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -184,6 +183,11 @@ const NewComplaint: React.FC = () => {
                         src={url}
                         alt={`Preview ${index}`}
                         className="w-full h-24 object-cover rounded-md"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = 'https://placehold.co/600x400/9b87f5/white?text=Image+Preview';
+                          target.onerror = null;
+                        }}
                       />
                       <button
                         type="button"

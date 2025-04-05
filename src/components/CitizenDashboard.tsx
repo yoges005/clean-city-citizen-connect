@@ -119,6 +119,11 @@ const CitizenDashboard: React.FC = () => {
                       src={complaint.images[0]} 
                       alt={complaint.title} 
                       className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = `https://placehold.co/600x400/9b87f5/white?text=${encodeURIComponent(complaint.title)}`;
+                        target.onerror = null;
+                      }}
                     />
                     <div className="absolute bottom-2 right-2">
                       <Badge className={`${statusColor(complaint.status)} px-3 py-1`}>
