@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ImageLoader from '@/components/ImageLoader';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -48,17 +48,14 @@ const Index = () => {
               </div>
             </div>
             <div className="md:w-1/2 flex justify-center md:justify-end">
-              <img 
-                src="/placeholder.svg" 
-                alt="Clean City Initiative" 
-                className="max-w-full h-auto rounded-lg shadow-lg animate-fade-in"
-                style={{ maxHeight: '400px' }}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = 'https://placehold.co/600x400/9b87f5/white?text=Clean+City+Initiative';
-                  target.onerror = null;
-                }}
-              />
+              <div className="w-full max-w-md h-auto rounded-lg shadow-lg animate-fade-in">
+                <ImageLoader 
+                  src="/placeholder.svg" 
+                  alt="Clean City Initiative" 
+                  className="max-w-full h-auto rounded-lg"
+                  fallbackText="Clean+City+Initiative"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -87,7 +84,7 @@ const Index = () => {
                 <CardContent className="pt-6">
                   <div className="rounded-full bg-green-100 w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-clean-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
                   </div>
                   <h3 className="text-xl font-semibold text-center mb-2">Real-time Status Updates</h3>

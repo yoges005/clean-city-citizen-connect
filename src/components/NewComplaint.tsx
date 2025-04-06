@@ -6,10 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Camera, MapPin, ArrowLeft } from "lucide-react";
+import { Camera, MapPin, ArrowLeft, X } from "lucide-react";
 import { toast } from 'sonner';
 import Header from './Header';
 import Footer from './Footer';
+import ImageLoader from './ImageLoader';
 
 const NewComplaint: React.FC = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const NewComplaint: React.FC = () => {
     const storedUserType = localStorage.getItem('userType');
     if (storedUserType !== 'citizen') {
       navigate('/login');
+      toast.error('Please login as a citizen to report a complaint');
       return;
     }
 
@@ -37,6 +39,7 @@ const NewComplaint: React.FC = () => {
           // In a real app, we would use a reverse geocoding API to get the address
           // For demo, we'll just set a placeholder location
           setLocation('Current Location (detected)');
+          toast.success('Location detected successfully');
         },
         (error) => {
           console.error('Error getting location:', error);
@@ -59,6 +62,7 @@ const NewComplaint: React.FC = () => {
       // Create preview URLs
       const newUrls = newFiles.map(file => URL.createObjectURL(file));
       setPreviewUrls([...previewUrls, ...newUrls]);
+      toast.success(`${newFiles.length} image(s) added`);
     }
   };
 
@@ -74,6 +78,7 @@ const NewComplaint: React.FC = () => {
     
     setImages(newImages);
     setPreviewUrls(newPreviewUrls);
+    toast.info('Image removed');
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -180,22 +185,20 @@ const NewComplaint: React.FC = () => {
                 <div className="grid grid-cols-3 gap-4 mt-2">
                   {previewUrls.map((url, index) => (
                     <div key={index} className="relative group">
-                      <img
-                        src={url}
-                        alt={`Preview ${index}`}
-                        className="w-full h-24 object-cover rounded-md"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.src = 'https://placehold.co/600x400/9b87f5/white?text=Image+Preview';
-                          target.onerror = null;
-                        }}
-                      />
+                      <div className="w-full h-24 overflow-hidden rounded-md">
+                        <ImageLoader
+                          src={url}
+                          alt={`Preview ${index + 1}`}
+                          className="w-full h-full object-cover rounded-md"
+                        />
+                      </div>
                       <button
                         type="button"
                         className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                         onClick={() => removeImage(index)}
+                        aria-label="Remove image"
                       >
-                        &times;
+                        <X className="h-4 w-4" />
                       </button>
                     </div>
                   ))}

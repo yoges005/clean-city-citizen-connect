@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -9,8 +8,8 @@ import { Plus, Camera, MapPin } from "lucide-react";
 import { toast } from 'sonner';
 import Header from './Header';
 import Footer from './Footer';
+import ImageLoader from './ImageLoader';
 
-// Mock complaint data
 const mockComplaints = [
   {
     id: 1,
@@ -48,7 +47,6 @@ const CitizenDashboard: React.FC = () => {
   const [userMobile, setUserMobile] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if user is logged in
     const storedUserType = localStorage.getItem('userType');
     const storedUserMobile = localStorage.getItem('userMobile');
     
@@ -58,14 +56,13 @@ const CitizenDashboard: React.FC = () => {
     }
     
     setUserMobile(storedUserMobile);
-    
-    // In a real app, we would fetch user complaints from API here
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('userType');
     localStorage.removeItem('userMobile');
     navigate('/login');
+    toast.success('Logged out successfully');
   };
 
   const getFilteredComplaints = () => {
@@ -84,6 +81,10 @@ const CitizenDashboard: React.FC = () => {
 
   const handleNewComplaint = () => {
     navigate('/new-complaint');
+  };
+
+  const handleViewDetails = (id: number) => {
+    toast.info(`Viewing details for complaint #${id}`);
   };
 
   return (
@@ -115,15 +116,10 @@ const CitizenDashboard: React.FC = () => {
               {getFilteredComplaints().map(complaint => (
                 <Card key={complaint.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                   <div className="h-48 bg-gray-200 relative">
-                    <img 
+                    <ImageLoader 
                       src={complaint.images[0]} 
-                      alt={complaint.title} 
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = `https://placehold.co/600x400/9b87f5/white?text=${encodeURIComponent(complaint.title)}`;
-                        target.onerror = null;
-                      }}
+                      alt={complaint.title}
+                      fallbackText={complaint.title} 
                     />
                     <div className="absolute bottom-2 right-2">
                       <Badge className={`${statusColor(complaint.status)} px-3 py-1`}>
@@ -155,7 +151,7 @@ const CitizenDashboard: React.FC = () => {
                     <Button 
                       variant="outline" 
                       className="w-full"
-                      onClick={() => navigate(`/complaint/${complaint.id}`)}
+                      onClick={() => handleViewDetails(complaint.id)}
                     >
                       View Details
                     </Button>

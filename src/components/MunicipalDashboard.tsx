@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -9,8 +8,8 @@ import { MapPin, CalendarIcon, CheckCircle } from "lucide-react";
 import { toast } from 'sonner';
 import Header from './Header';
 import Footer from './Footer';
+import ImageLoader from './ImageLoader';
 
-// Mock complaints data (in a real app, this would come from an API)
 const mockComplaints = [
   {
     id: 1,
@@ -65,7 +64,6 @@ const MunicipalDashboard: React.FC = () => {
   const [municipalCode, setMunicipalCode] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if user is logged in
     const storedUserType = localStorage.getItem('userType');
     const storedMunicipalCode = localStorage.getItem('municipalCode');
     
@@ -75,17 +73,15 @@ const MunicipalDashboard: React.FC = () => {
     }
     
     setMunicipalCode(storedMunicipalCode);
-    
-    // In a real app, we would fetch complaints from API here
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('userType');
     localStorage.removeItem('municipalCode');
     navigate('/login');
+    toast.success('Logged out successfully');
   };
 
-  // Filter complaints based on active tab
   const getFilteredComplaints = () => {
     const today = new Date().toISOString().split('T')[0];
     const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
@@ -104,10 +100,8 @@ const MunicipalDashboard: React.FC = () => {
     return complaints;
   };
 
-  // For demo purposes, we're showing all complaints in "today" tab
   const filteredComplaints = activeTab === 'today' ? complaints : getFilteredComplaints();
 
-  // Update complaint status
   const updateComplaintStatus = (id: number, newStatus: 'pending' | 'ongoing' | 'completed') => {
     const updatedComplaints = complaints.map(complaint => {
       if (complaint.id === id) {
@@ -123,8 +117,10 @@ const MunicipalDashboard: React.FC = () => {
       : `Complaint status updated to ${newStatus}.`;
     
     toast.success(statusMessage);
-    
-    // In a real app, we would send API request to update status
+  };
+
+  const handleViewDetails = (id: number) => {
+    toast.info(`Viewing details for complaint #${id}`);
   };
 
   const statusColor = (status: string) => {
@@ -161,10 +157,10 @@ const MunicipalDashboard: React.FC = () => {
                 <Card key={complaint.id} className="overflow-hidden hover:shadow-md transition-shadow duration-300">
                   <div className="md:flex">
                     <div className="md:w-1/3 h-48 bg-gray-200">
-                      <img 
+                      <ImageLoader 
                         src={complaint.images[0]} 
-                        alt={complaint.title} 
-                        className="w-full h-full object-cover"
+                        alt={complaint.title}
+                        fallbackText={complaint.title} 
                       />
                     </div>
                     
@@ -230,7 +226,7 @@ const MunicipalDashboard: React.FC = () => {
                         <Button 
                           variant="default" 
                           size="sm"
-                          onClick={() => navigate(`/complaint-details/${complaint.id}`)}
+                          onClick={() => handleViewDetails(complaint.id)}
                         >
                           View Details
                         </Button>
