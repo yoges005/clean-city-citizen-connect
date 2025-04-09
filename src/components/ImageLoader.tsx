@@ -24,7 +24,7 @@ const ImageLoader: React.FC<ImageLoaderProps> = ({
   const fallbackSrc = `https://placehold.co/600x400/${fallbackColor}/white?text=${textToShow}`;
 
   return (
-    <div className={`relative overflow-hidden ${!isLoaded ? 'bg-gray-100 animate-pulse' : ''}`}>
+    <div className={`relative overflow-hidden ${!isLoaded ? 'bg-gray-100 dark:bg-gray-800 animate-pulse' : ''}`}>
       <img
         src={hasError ? fallbackSrc : src}
         alt={alt}

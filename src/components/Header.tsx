@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Bell, MessageSquare, MapPin } from "lucide-react";
+import ThemeToggle from './ThemeToggle';
 
 type HeaderProps = {
   userType?: 'citizen' | 'municipal' | null;
@@ -23,13 +24,15 @@ const Header: React.FC<HeaderProps> = ({ userType, onLogout }) => {
   };
 
   return (
-    <header className="bg-clean-blue text-white shadow-md">
+    <header className="bg-clean-blue text-white shadow-md dark:bg-gray-900 dark:text-white transition-colors duration-300">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
           <span className="text-xl font-bold">Municipal Corporation of India</span>
         </Link>
 
         <div className="flex items-center space-x-4">
+          <ThemeToggle />
+          
           {userType ? (
             <>
               {userType === 'citizen' && (
@@ -47,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({ userType, onLogout }) => {
               )}
               <Button 
                 variant="outline" 
-                className="text-white border-white hover:bg-blue-700"
+                className="text-white border-white hover:bg-blue-700 dark:hover:bg-gray-700"
                 onClick={handleLogout}
               >
                 Logout
@@ -57,7 +60,7 @@ const Header: React.FC<HeaderProps> = ({ userType, onLogout }) => {
             <div className="flex items-center space-x-2">
               <Button 
                 variant="outline" 
-                className="text-white border-white hover:bg-blue-700" 
+                className="text-white border-white hover:bg-blue-700 dark:hover:bg-gray-700" 
                 onClick={() => navigate('/login')}
               >
                 Login
