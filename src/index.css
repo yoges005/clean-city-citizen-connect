@@ -92,6 +92,22 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Improve text visibility */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+  
+  /* Add text-shadow for better contrast on colorful backgrounds */
+  .text-on-color {
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* High contrast text for accessibility */
+  .text-high-contrast {
+    @apply text-gray-900 dark:text-white font-medium;
   }
 }
 
@@ -131,8 +147,23 @@
   .text-gradient {
     @apply bg-gradient-to-r from-clean-blue to-clean-purple bg-clip-text text-transparent;
   }
+  
+  /* Image container with improved handling */
+  .image-container {
+    @apply relative overflow-hidden bg-gray-100;
+    min-height: 100px;
+  }
 }
 
+/* Better button text visibility */
+button, 
+.button,
+[role="button"] {
+  @apply font-medium;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Base styles from the original file */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -175,4 +206,3 @@
 .read-the-docs {
   color: #888;
 }
-

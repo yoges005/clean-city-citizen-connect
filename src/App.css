@@ -19,7 +19,20 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-/* New animation styles */
+/* Button enhancements for better visibility */
+button {
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  font-weight: 500 !important;
+}
+
+/* Improve contrast for button text */
+button.bg-white, 
+button.bg-gray-100, 
+button.bg-gray-200 {
+  text-shadow: none !important;
+}
+
+/* Animation styles */
 .fade-in {
   animation: fadeIn 0.5s ease-out forwards;
 }
