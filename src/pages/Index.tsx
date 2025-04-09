@@ -19,7 +19,7 @@ const Index = () => {
         <section className="bg-gradient-to-b from-clean-blue to-blue-700 text-white py-20">
           <div className="container mx-auto px-4 text-center md:text-left md:flex items-center">
             <div className="md:w-1/2 pb-10 md:pb-0">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in text-white">
                 Clean City Citizen Connect
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-blue-100 animate-slide-in-left">
@@ -31,7 +31,7 @@ const Index = () => {
                   className="bg-white text-clean-blue hover:bg-blue-50 hover-scale"
                   onClick={() => navigate('/login')}
                 >
-                  Login / Register
+                  <span className="font-semibold">Login / Register</span>
                 </Button>
                 <Button 
                   size="lg" 
@@ -44,17 +44,18 @@ const Index = () => {
                     }
                   }}
                 >
-                  Learn More
+                  <span className="font-semibold">Learn More</span>
                 </Button>
               </div>
             </div>
             <div className="md:w-1/2 flex justify-center md:justify-end">
-              <div className="w-full max-w-md h-auto rounded-lg shadow-lg animate-float">
+              <div className="w-full max-w-md h-64 md:h-80 rounded-lg shadow-lg animate-float overflow-hidden">
                 <ImageLoader 
                   src="/placeholder.svg" 
                   alt="Clean City Initiative" 
-                  className="max-w-full h-auto rounded-lg"
+                  className="w-full h-full object-cover rounded-lg"
                   fallbackText="Clean+City+Initiative"
+                  fallbackColor="1e88e5"
                 />
               </div>
             </div>
@@ -62,9 +63,9 @@ const Index = () => {
         </section>
         
         {/* Features Section */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50 dark:bg-gray-800">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12 animate-fade-in">Our Platform Features</h2>
+            <h2 className="text-3xl font-bold text-center mb-12 animate-fade-in dark:text-white">Our Platform Features</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Card className="clean-card hover-lift animate-fade-in" style={{ animationDelay: '0.1s' }}>
