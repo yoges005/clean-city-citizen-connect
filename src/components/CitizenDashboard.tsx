@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -18,7 +19,7 @@ const mockComplaints = [
     date: '2023-04-01',
     status: 'pending',
     description: 'Large pile of garbage on the side of MG Road near the bus stop',
-    images: ['/placeholder.svg'],
+    images: ['/lovable-uploads/61860064-7724-41ae-a780-102ff633c385.png'],
   },
   {
     id: 2,
@@ -27,7 +28,7 @@ const mockComplaints = [
     date: '2023-03-28',
     status: 'ongoing',
     description: 'Drainage system is overflowing and causing bad smell and mosquitoes',
-    images: ['/placeholder.svg'],
+    images: ['/lovable-uploads/61860064-7724-41ae-a780-102ff633c385.png'],
   },
   {
     id: 3,
@@ -36,7 +37,7 @@ const mockComplaints = [
     date: '2023-03-25',
     status: 'completed',
     description: 'Street light has been broken for over a week causing safety concerns',
-    images: ['/placeholder.svg'],
+    images: ['/lovable-uploads/61860064-7724-41ae-a780-102ff633c385.png'],
   },
 ];
 

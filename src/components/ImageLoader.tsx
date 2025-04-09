@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 type ImageLoaderProps = {
   src: string;
@@ -18,10 +18,24 @@ const ImageLoader: React.FC<ImageLoaderProps> = ({
   fallbackColor = "9b87f5",
   animationClass = ""
 }) => {
-  const [hasError, setHasError] = React.useState(false);
-  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   const textToShow = fallbackText || alt.replace(/\s+/g, '+');
   const fallbackSrc = `https://placehold.co/600x400/${fallbackColor}/ffffff?text=${textToShow}`;
+  
+  // Enhanced error handling with retry logic
+  useEffect(() => {
+    if (hasError && retryCount < 2) {
+      const timer = setTimeout(() => {
+        console.log(`Retrying image load (${retryCount + 1}/2): ${src}`);
+        setHasError(false);
+        setRetryCount(prev => prev + 1);
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [hasError, retryCount, src]);
 
   return (
     <div className={`relative overflow-hidden ${!isLoaded ? 'bg-gray-200 dark:bg-gray-700 animate-pulse' : ''}`}>

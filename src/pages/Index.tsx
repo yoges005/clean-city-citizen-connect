@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -51,7 +50,7 @@ const Index = () => {
             <div className="md:w-1/2 flex justify-center md:justify-end">
               <div className="w-full max-w-md h-64 md:h-80 rounded-lg shadow-lg animate-float overflow-hidden">
                 <ImageLoader 
-                  src="/placeholder.svg" 
+                  src="/lovable-uploads/61860064-7724-41ae-a780-102ff633c385.png" 
                   alt="Clean City Initiative" 
                   className="w-full h-full object-cover rounded-lg"
                   fallbackText="Clean+City+Initiative"
